@@ -1,4 +1,4 @@
-module feder
+module gfeder
 
 go 1.17
 

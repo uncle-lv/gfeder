@@ -2,7 +2,7 @@ package session
 
 import (
 	"database/sql"
-	"feder/log"
+	"gfeder/log"
 	"strings"
 )
 

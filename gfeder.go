@@ -1,9 +1,9 @@
-package feder
+package gfeder
 
 import (
 	"database/sql"
-	"feder/log"
-	"feder/session"
+	"gfeder/log"
+	"gfeder/session"
 )
 
 type Engine struct {
