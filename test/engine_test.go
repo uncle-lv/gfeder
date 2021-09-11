@@ -1,15 +1,15 @@
 package test
 
 import (
-	"feder"
 	"fmt"
+	"gfeder"
 	"testing"
 
 	_ "github.com/mattn/go-sqlite3"
 )
 
 func TestEngine(t *testing.T) {
-	engine, _ := feder.NewEngine("sqlite3", "gee.db")
+	engine, _ := gfeder.NewEngine("sqlite3", "gee.db")
 	defer engine.Close()
 	s := engine.NewSession()
 	_, _ = s.Raw("DROP TABLE IF EXISTS User;").Exec()
