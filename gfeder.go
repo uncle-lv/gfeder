@@ -2,12 +2,14 @@ package gfeder
 
 import (
 	"database/sql"
+	"gfeder/dialect"
 	"gfeder/log"
 	"gfeder/session"
 )
 
 type Engine struct {
-	db *sql.DB
+	db      *sql.DB
+	dialect dialect.Dialect
 }
 
 func NewEngine(driver, source string) (e *Engine, err error) {
@@ -17,11 +19,19 @@ func NewEngine(driver, source string) (e *Engine, err error) {
 		log.Error(err)
 		return
 	}
+
 	if err = db.Ping(); err != nil {
 		log.Error(err)
 		return
 	}
-	e = &Engine{db: db}
+
+	dialect, ok := dialect.GetDialect(driver)
+	if !ok {
+		log.Errorf("dialect %s Not Found", driver)
+		return
+	}
+
+	e = &Engine{db: db, dialect: dialect}
 	log.Info("Connect database succeed")
 	return
 }
@@ -34,5 +44,5 @@ func (e *Engine) Close() {
 }
 
 func (e *Engine) NewSession() *session.Session {
-	return session.New(e.db)
+	return session.New(e.db, e.dialect)
 }

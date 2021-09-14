@@ -39,7 +39,7 @@ func Parse(dest interface{}, d dialect.Dialect) *Schema {
 				Name: p.Name,
 				Type: d.DataTypeOf(reflect.Indirect(reflect.New(p.Type))),
 			}
-			if v, ok := p.Tag.Lookup("geeorm"); ok {
+			if v, ok := p.Tag.Lookup("feder"); ok {
 				field.Tag = v
 			}
 			schema.Fields = append(schema.Fields, field)

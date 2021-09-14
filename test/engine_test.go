@@ -9,7 +9,7 @@ import (
 )
 
 func TestEngine(t *testing.T) {
-	engine, _ := gfeder.NewEngine("sqlite3", "gee.db")
+	engine, _ := gfeder.NewEngine("sqlite3", "feder.db")
 	defer engine.Close()
 	s := engine.NewSession()
 	_, _ = s.Raw("DROP TABLE IF EXISTS User;").Exec()
