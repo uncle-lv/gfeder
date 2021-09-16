@@ -9,14 +9,14 @@ import (
 )
 
 func (s *Session) Model(value interface{}) *Session {
-	if s.refTable == nil || reflect.TypeOf(value) != reflect.TypeOf(s.refTable.Model) {
+	if nil == s.refTable || reflect.TypeOf(value) != reflect.TypeOf(s.refTable.Model) {
 		s.refTable = schema.Parse(value, s.dialect)
 	}
 	return s
 }
 
 func (s *Session) RefTable() *schema.Schema {
-	if s.refTable == nil {
+	if nil == s.refTable {
 		log.Error("Model is not set")
 	}
 
