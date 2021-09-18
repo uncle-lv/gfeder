@@ -9,6 +9,15 @@ import (
 	"strings"
 )
 
+type CommonDB interface {
+	Query(query string, args ...interface{}) (*sql.Rows, error)
+	QueryRow(query string, args ...interface{}) *sql.Row
+	Exec(query string, args ...interface{}) (sql.Result, error)
+}
+
+var _ CommonDB = (*sql.DB)(nil)
+var _ CommonDB = (*sql.Tx)(nil)
+
 type Session struct {
 	db       *sql.DB
 	dialect  dialect.Dialect
@@ -16,6 +25,7 @@ type Session struct {
 	clause   clause.Clause
 	sql      strings.Builder
 	sqlVars  []interface{}
+	tx       *sql.Tx
 }
 
 func New(db *sql.DB, dialect dialect.Dialect) *Session {
@@ -31,7 +41,10 @@ func (s *Session) Clear() {
 	s.clause = clause.Clause{}
 }
 
-func (s *Session) DB() *sql.DB {
+func (s *Session) DB() CommonDB {
+	if s.tx != nil {
+		return s.tx
+	}
 	return s.db
 }
 
@@ -61,6 +74,31 @@ func (s *Session) QueryRows() (rows *sql.Rows, err error) {
 	defer s.Clear()
 	log.Info(s.sql.String(), s.sqlVars)
 	if rows, err = s.DB().Query(s.sql.String(), s.sqlVars...); err != nil {
+		log.Error(err)
+	}
+	return
+}
+
+func (s *Session) Begin() (err error) {
+	log.Info("transaction begin")
+	if s.tx, err = s.db.Begin(); err != nil {
+		log.Error(err)
+		return
+	}
+	return
+}
+
+func (s *Session) Commit() (err error) {
+	log.Info("transaction commit")
+	if err = s.tx.Commit(); err != nil {
+		log.Error(err)
+	}
+	return
+}
+
+func (s *Session) Rollback() (err error) {
+	log.Info("transaction rollback")
+	if err = s.tx.Rollback(); err != nil {
 		log.Error(err)
 	}
 	return
