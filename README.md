@@ -1,6 +1,6 @@
 # gfeder
 
-![license](https://img.shields.io/github/license/uncle-lv/feder) ![stars](https://img.shields.io/github/stars/uncle-lv/feder) ![issues](https://img.shields.io/github/issues/uncle-lv/feder) ![forks](https://img.shields.io/github/forks/uncle-lv/feder) ![go version](https://img.shields.io/github/go-mod/go-version/uncle-lv/feder?color=%23007d9c) ![database](https://img.shields.io/badge/database-sqlite3-%231296db)
+![license](https://img.shields.io/github/license/uncle-lv/feder) ![stars](https://img.shields.io/github/stars/uncle-lv/feder) ![issues](https://img.shields.io/github/issues/uncle-lv/feder) ![forks](https://img.shields.io/github/forks/uncle-lv/feder) ![go version](https://img.shields.io/github/go-mod/go-version/uncle-lv/feder?color=%23007d9c) ![database](https://img.shields.io/badge/database-SQLite3-%231296db)
 
 **gfeder** is a simple ORM framework written in Go which can help you quickly understand the core principles of a ORM framework.
 
@@ -30,6 +30,14 @@ step7-migrate
 
 $ git checkout step1-simple-sql-excute
 ```
+
+## Diagrams
+
+### class diagram
+
+<div align=center><img src="https://cdn.jsdelivr.net/gh/uncle-lv/PicX-image-hosting@main/gfeder/class_diagram.3ggmc9w3bgi0.svg" alt="class diagram"/></div>
+
+
 
 ## Contributions
 
