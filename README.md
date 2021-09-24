@@ -43,7 +43,7 @@ $ git checkout step1-simple-sql-excute
 
 Any contribution you make are greatly appreciated.
 
-## Lisence
+## License
 
 [GPL-2.0](https://github.com/uncle-lv/gfeder/blob/main/LICENSE)
 
